@@ -18,7 +18,7 @@ class CreateExpensesTable extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('description');
             $table->integer('type');
-            $table->double('amount', 10, 2);
+            $table->integer('amount');
             $table->timestamps();
         });
     }

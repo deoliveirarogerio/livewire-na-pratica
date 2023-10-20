@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Livewire\Expense\{
+    ExpenseCreate,
+    ExpenseEdit,
+    ExpenseList
+};
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,4 +30,15 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+// EXPENSES
+Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+    Route::prefix('expenses')->name('expenses.')->group(function(){
+
+        Route::get('/', ExpenseList::class)->name('index');
+        Route::get('/create', ExpenseCreate::class)->name('create');
+        Route::get('/edit/{expense}', ExpenseEdit::class)->name('edit');
+
+    });
 });
